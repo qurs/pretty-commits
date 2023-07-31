@@ -26,12 +26,9 @@ app.post('/send', (req, res) => {
 		if (index > 0) description = description + "\n"
 
 		var commitMessage = commitData.message
-		if ( commitMessage.startsWith('🕵️‍♂️') ) {
-			commitMessage = 'Конфиденциально'
+		if ( emoji.unemojify(commitMessage).startsWith(':lock:') ) {
+			commitMessage = '🔒 Конфиденциально'
 		}
-
-		console.log(commitMessage)
-		console.log(emoji.unemojify(commitMessage))
 
 		description = description + `[\`${ commitData.id.substring(0, 7) }\`](${commitData.url}) ${commitData.message}`
 		index++
