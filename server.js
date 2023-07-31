@@ -1,6 +1,7 @@
 const express = require('express')
 const crypto = require('crypto')
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const emoji = require('node-emoji')
 
 const app = express()
 const CFG = require('./config.json')
@@ -29,9 +30,8 @@ app.post('/send', (req, res) => {
 			commitMessage = 'Конфиденциально'
 		}
 
-		console.log('🕵️‍♂️')
 		console.log(commitMessage)
-		console.log(commitMessage.substring(0, 1))
+		console.log(emoji.unemojify(commitMessage))
 
 		description = description + `[\`${ commitData.id.substring(0, 7) }\`](${commitData.url}) ${commitData.message}`
 		index++
