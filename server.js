@@ -29,6 +29,10 @@ app.post('/send', (req, res) => {
 			commitMessage = 'Конфиденциально'
 		}
 
+		console.log('🕵️‍♂️')
+		console.log(commitMessage)
+		console.log(commitMessage.substring(0, 1))
+
 		description = description + `[\`${ commitData.id.substring(0, 7) }\`](${commitData.url}) ${commitData.message}`
 		index++
 	}
