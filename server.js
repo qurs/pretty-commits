@@ -24,6 +24,11 @@ app.post('/send', (req, res) => {
 	for ( commitData of data.commits ) {
 		if (index > 0) description = description + "\n"
 
+		var commitMessage = commitData.message
+		if ( commitMessage.startsWith('🕵️‍♂️') ) {
+			commitMessage = 'Конфиденциально'
+		}
+
 		description = description + `[\`${ commitData.id.substring(0, 7) }\`](${commitData.url}) ${commitData.message}`
 		index++
 	}
