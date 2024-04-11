@@ -1,5 +1,0 @@
-{
-	"port": 1337,
-	"secret_key": "secret key here",
-	"discord_webhook": "webhook url here"
-}

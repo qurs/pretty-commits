@@ -4,18 +4,17 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 const emoji = require('node-emoji')
 
 const app = express()
-const CFG = require('./config.json')
 
 app.use(express.json())
 
 app.post('/send', (req, res) => {
 	const data = req.body
-	if (!data) return
+	if (!data) return res.sendStatus(400)
 	
 	const signature = req.headers['x-hub-signature-256']
 	if (!signature) return res.sendStatus(403)
 
-	const HMAC = crypto.createHmac('sha256', CFG.secret_key)
+	const HMAC = crypto.createHmac('sha256', process.env.SECRET_KEY)
 	const hash = 'sha256=' + HMAC.update(JSON.stringify(data)).digest('hex')
 
 	if (signature != hash) return res.sendStatus(403)
@@ -26,8 +25,8 @@ app.post('/send', (req, res) => {
 		if (index > 0) description = description + "\n"
 
 		var commitMessage = commitData.message
-		if ( emoji.unemojify(commitMessage).startsWith(':lock:') ) {
-			commitMessage = '🔒 Конфиденциально'
+		if ( emoji.unemojify(commitMessage).match('detective') ) {
+			commitMessage = '🕵️ Конфиденциально'
 		}
 
 		description = description + `[\`${ commitData.id.substring(0, 7) }\`](${commitData.url}) ${commitMessage} | ${commitData.author.name}`
@@ -35,7 +34,7 @@ app.post('/send', (req, res) => {
 	}
 
 	const commitCount = data.commits.length
-	const commitCountStr =  commitCount.toString()
+	const commitCountStr = commitCount.toString()
 
 	var commitWord = 'новых изменений'
 
@@ -72,7 +71,7 @@ app.post('/send', (req, res) => {
 		],
 	}
 
-	fetch(CFG.discord_webhook, {
+	fetch(process.env.DISCORD_WEBHOOK, {
 		method: 'POST',
 		headers: {
 			'Content-type': 'application/json'
@@ -80,10 +79,10 @@ app.post('/send', (req, res) => {
 		body: JSON.stringify(params)
 	}) 
 
-	res.send('ok')
+	res.sendStatus(200).send('ok')
 })
 
-const port = CFG.port
+const port = process.env.PORT
 app.listen(port, () => {
 	console.log(`Application listening on port ${port}!`)
 })
