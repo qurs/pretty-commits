@@ -79,7 +79,7 @@ app.post('/send', (req, res) => {
 		body: JSON.stringify(params)
 	}) 
 
-	res.sendStatus(200).send('ok')
+	res.sendStatus(200)
 })
 
 const port = process.env.PORT
