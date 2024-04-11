@@ -1,5 +1,5 @@
 {
-  "name": "andromeda-commits-webhook",
+  "name": "pretty-commits",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
