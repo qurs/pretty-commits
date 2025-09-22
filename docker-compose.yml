@@ -4,7 +4,7 @@ services:
     build:
       context: .
     volumes:
-      ./src:/opt/app/src:ro
+      - ./src:/opt/app/src:ro
     ports:
       - ${PORT}:${PORT}
     restart: always
