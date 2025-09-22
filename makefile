@@ -9,7 +9,7 @@ stop:
 	@docker compose down
 
 clear:
-	@docker image prune -y
+	@docker image prune -a
 
 pull:
 	@git pull

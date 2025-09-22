@@ -3,6 +3,8 @@ services:
     container_name: commits
     build:
       context: .
+    volumes:
+      ./src:/opt/app/src:ro
     ports:
       - ${PORT}:${PORT}
     restart: always

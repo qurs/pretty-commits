@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node /opt/app/src/index.js"
   },
   "author": "qurs",
   "license": "ISC",
