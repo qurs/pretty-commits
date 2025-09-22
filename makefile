@@ -5,9 +5,18 @@ attach:
 	@docker logs -n 100 commits
 	@docker attach commits
 
-start:
-	@make check-files
-	@docker compose up -d
-
 stop:
 	@docker compose down
+
+clear:
+	@docker image prune -y
+
+pull:
+	@git pull
+
+start:
+	@make stop
+	@make pull
+	@make check-files
+	@docker compose up -d --build
+	@make clear

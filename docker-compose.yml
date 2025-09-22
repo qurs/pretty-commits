@@ -1,16 +1,9 @@
 services:
   commits:
-    image: node:lts
     container_name: commits
-    working_dir: /home
-    command: npm i && npm start
-    volumes:
-      - ./src:/home/src:ro
-      - ./package.json:/home/package.json:ro
-      - ./package-lock.json:/home/package-lock.json:ro
-      - ./node_modules:/home/node_modules
+    build:
+      context: .
     ports:
       - ${PORT}:${PORT}
+    restart: always
     env_file: .env
-    tty: true
-    stdin_open: true
