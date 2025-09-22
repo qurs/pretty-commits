@@ -3,7 +3,7 @@ services:
     image: node:lts
     container_name: commits
     working_dir: /home
-    command: npm start
+    command: npm i && npm start
     volumes:
       - ./src:/home/src:ro
       - ./package.json:/home/package.json:ro
