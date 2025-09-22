@@ -7,7 +7,6 @@ attach:
 
 start:
 	@make check-files
-	@npm i
 	@docker compose up -d
 
 stop:
