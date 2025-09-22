@@ -8,9 +8,6 @@ attach:
 stop:
 	@docker compose down
 
-clear:
-	@docker image prune -a
-
 pull:
 	@git pull
 
@@ -19,4 +16,3 @@ start:
 	@make pull
 	@make check-files
 	@docker compose up -d --build
-	@make clear
